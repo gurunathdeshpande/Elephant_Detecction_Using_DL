@@ -11,14 +11,3 @@ This project aims to detect **elephants in satellite images** using **YOLOv8**. 
 - ⚡ **Optimized for Performance**
 - 📊 **Evaluation with IoU & mAP Metrics**
 
-## 📂 Project Structure
-```bash
-📦 Elephant-Detection
-│-- 📁 data/                # Dataset (images & annotations)
-│-- 📁 models/              # Pre-trained YOLOv8 model weights
-│-- 📁 scripts/             # Python scripts for training & inference
-│-- 📁 results/             # Output predictions & evaluation results
-│-- train.py                # Training script
-│-- detect.py               # Inference script
-│-- requirements.txt        # Dependencies list
-│-- README.md               # Project documentation
