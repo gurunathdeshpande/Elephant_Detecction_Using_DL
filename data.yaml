@@ -1,0 +1,38 @@
+train: C:/Elephant_Project_DL/train/images  # Path to training images
+val: C:/Elephant_Project_DL/valid/images    # Path to validation images
+test: C:/Elephant_Project_DL/test/images    # Path to test images
+
+nc: 1  # Number of classes (1 class: 'elephant')
+names: ['elephant']  # Class name(s)
+
+# Data augmentation settings
+augmentation:
+  - flipud: 0.5  # Flip images vertically with a 50% probability
+  - fliplr: 0.5  # Flip images horizontally with a 50% probability
+  - hsv_h: 0.015  # Adjust hue
+  - hsv_s: 0.7    # Adjust saturation
+  - hsv_v: 0.4    # Adjust value (brightness)
+  - rotate: 10.0  # Rotate images by up to 10 degrees
+  - zoom: 0.1     # Zoom images by up to 10%
+
+
+
+
+
+
+
+
+
+# train: C:\Elephant_Project_DL\train\images
+# val: C:\Elephant_Project_DL\valid\images
+# test: C:\Elephant_Project_DL\test\images
+
+# nc: 1  # Number of classes
+# names: ['elephant']  # Change '0' to 'elephant'
+
+# roboflow:
+#   workspace: aiproject-g3pjz
+#   project: newprojectelephant-rwxhd-5isxd
+#   version: 2
+#   license: CC BY 4.0
+#   url: https://universe.roboflow.com/aiproject-g3pjz/newprojectelephant-rwxhd-5isxd/dataset/2

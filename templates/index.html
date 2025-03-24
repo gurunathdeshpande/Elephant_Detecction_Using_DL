@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elephant Detection</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background-image: url('https://wallpapers.com/images/hd/elephant-hd-4x01hi0tzwnkjb38.jpg'); /* Beautiful nature background */
+            background-size: cover;
+            background-position: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Gradient overlay for better visibility */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Darker overlay for better contrast */
+        }
+
+        .container {
+            position: relative;
+            margin-top: 80px;
+            text-align: center;
+            z-index: 2;
+        }
+
+        h1 {
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #f8f9fa;
+            font-size: 3rem;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .upload-card {
+            padding: 40px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-upload {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            border-radius: 30px;
+            transition: background-color 0.3s;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+        }
+
+        .btn-upload:hover {
+            background-color: #218838;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .image-container {
+            margin-top: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            border: 5px solid #17a2b8;
+            border-radius: 15px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            margin-top: 50px;
+            color: #ddd;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .icon-container {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #343a40;
+        }
+
+        .card-body {
+            background-color: #ffffff;
+            padding: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="overlay"></div> <!-- Overlay for background image -->
+
+    <!-- Main Container -->
+    <div class="container">
+        <h1 class="display-4">🦣 Elephant Detection from Satellite Images</h1>
+
+        <!-- Upload Section -->
+        <div class="upload-card shadow">
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="image" class="form-label">Upload a Satellite Image</label>
+                    <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                </div>
+                <button type="submit" class="btn btn-upload"><i class="fas fa-search"></i> Detect Elephants</button>
+            </form>
+        </div>
+
+        <!-- Info Card Section -->
+        <div class="card mb-4">
+            <div class="card-header">How it Works</div>
+            <div class="card-body">
+                <p>Upload a satellite image, and our system will detect elephants using AI-powered models. The detected elephants will be marked with bounding boxes for easy identification.</p>
+            </div>
+        </div>
+
+        <!-- Output Section -->
+        {% if uploaded_image %}
+        <div id="output" class="image-container">
+            <h3 class="text-success">Annotated Image:</h3>
+            {% if processed_image %}
+                <img src="{{ url_for('static', filename='results/' + processed_image) }}" alt="Processed Image">
+            {% else %}
+                <p>No objects detected in the image.</p>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Display Error Messages -->
+        {% if error %}
+            <div class="alert alert-danger mt-4">
+                <strong>Error:</strong> {{ error }}
+            </div>
+        {% endif %}
+
+        <!-- Display Metrics -->
+        <div class="card mt-4">
+            <div class="card-header">Model Performance</div>
+            <div class="card-body">
+                <p>Average mAP50: {{ mAP50 }}</p>
+                <p>Average mAP50-95: {{ mAP50_95 }}</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-5">
+            <p>&copy; 2025 Elephant Detection Project. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
